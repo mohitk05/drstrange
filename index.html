@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Visualisation</title>
+    <style>
+        body {
+            background: black;
+        }
+
+        div div {
+            height: 1000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cy"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.19.0/cytoscape.min.js"></script>
+    <script>
+        fetch('/api/graph').then(res => res.json()).then(res => {
+            const cy = cytoscape({
+                container: document.getElementById('cy'),
+                elements: res,
+                style: [ // the stylesheet for the graph
+                    {
+                        selector: 'node',
+                        style: {
+                            'background-color': '#f33',
+                            // 'label': ' '
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            'width': 1,
+                            'line-color': '#fff',
+                            'target-arrow-color': '#fff',
+                            'target-arrow-shape': 'triangle',
+                            'curve-style': 'bezier'
+                        }
+                    }
+                ],
+
+                layout: {
+                    name: 'circle',
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>
